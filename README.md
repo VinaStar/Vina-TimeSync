@@ -20,6 +20,8 @@
    
    **4)** Will create a "server_time.txt" automatically at first launch, this is were time will be saved for persistence.
    
+---
+   
 ### EXPORTS:
    
 You can get the server time in your own resource using this export function:  
