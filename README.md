@@ -6,8 +6,9 @@
 - Custom Timerate speed
 - Time Persistence
 - Standalone Resource
-- Compatible with any resources
+- Usable in any resources
    
+---
    
 ### INSTRUCTIONS:
    
