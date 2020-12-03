@@ -1,4 +1,10 @@
 # FiveM TimeSync v1.0
+
+### FEATURES
+- Perfect Client & Server time synchronization
+- Configurable server settings using Convars
+- Custom Timerate speed
+- Time Persistence
    
    
 ### INSTRUCTIONS:
