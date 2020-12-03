@@ -25,7 +25,7 @@
 ### EXPORTS:
    
 You can get the server time in your own resource using this export function:  
-   *Exports["fivemtimesync"].CurrentDateTicks()*  
+   - *Exports["fivemtimesync"].CurrentDateTicks()*  
    **Will return the total Ticks**
    
    ```C#
