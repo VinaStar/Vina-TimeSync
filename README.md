@@ -30,6 +30,7 @@ You can get the server time in your own resource using this export function:
    DateTime currentDate = new DateTime(Exports["fivemtimesync"].CurrentDateTicks());
    ```
    
+---
    
 ### CONVARS:
    
