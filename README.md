@@ -5,6 +5,8 @@
 - Configurable server settings using Convars
 - Custom Timerate speed
 - Time Persistence
+- Standalone Resource
+- Compatible with any resources
    
    
 ### INSTRUCTIONS:
