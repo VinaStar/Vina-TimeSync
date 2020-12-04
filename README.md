@@ -1,4 +1,4 @@
-# FiveM TimeSync v1.0
+# FiveM TimeSync
 
 ### FEATURES
 - Perfect Client & Server time synchronization
@@ -8,6 +8,11 @@
 - Standalone Resource
 - Usable in any resources
    
+---
+  
+### REQUIREMENTS
+- [Vina Framework](https://github.com/VinaStar/Vina-Framework/releases)
+  
 ---
    
 ### INSTRUCTIONS:
