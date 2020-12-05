@@ -4,6 +4,7 @@
 - Perfect Client & Server time synchronization
 - Configurable server settings using Convars
 - Custom Timerate speed
+- Pause-able Server Time
 - Time Persistence
 - Standalone Resource
 - Usable in any resources
