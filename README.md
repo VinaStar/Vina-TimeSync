@@ -48,7 +48,7 @@ You can get the server time in your own resource using this export function:
 - SetCurrentDateTicks(**long** ticks)  
 **info:** Set the server time from total ticks  
    
-```chsharp
+```csharp
 // Get the server time
 long ticks = Exports["fivemtimesync"].GetCurrentDateTicks();
 DateTime currentDate = new DateTime(ticks);
