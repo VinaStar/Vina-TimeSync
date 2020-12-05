@@ -34,8 +34,19 @@
 ### SERVER EXPORTS:
    
 You can get the server time in your own resource using this export function:  
-- Exports["fivemtimesync"].CurrentDateTicks()  
-*Will return the total Ticks*
+- GetTimeIsPaused()  
+**return:** bool  
+**info:** Get if the server time is paused  
+  
+- SetTimeIsPaused(**bool** isPaused)  
+**info:** Pause the server time  
+  
+- GetCurrentDateTicks()  
+**return:** long  
+**info:** Get the server time total ticks  
+  
+- SetCurrentDateTicks(**long** ticks)  
+**info:** Set the server time from total ticks  
    
 ```C#
 DateTime currentDate = new DateTime(Exports["fivemtimesync"].CurrentDateTicks());
