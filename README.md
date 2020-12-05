@@ -1,4 +1,4 @@
-# FiveM TimeSync v1.0
+# FiveM TimeSync
 
 ### FEATURES
 - Perfect Client & Server time synchronization
@@ -8,6 +8,15 @@
 - Standalone Resource
 - Usable in any resources
    
+---
+  
+![Server Console Output](https://i.imgur.com/GSkoVZB.png)
+  
+---
+  
+### DEPENDENCIES:
+- [Vina Framework](https://github.com/VinaStar/Vina-Framework/releases)
+  
 ---
    
 ### INSTRUCTIONS:
@@ -22,15 +31,31 @@
    
 ---
    
-### EXPORTS:
+### SERVER EXPORTS:
    
 You can get the server time in your own resource using this export function:  
-   - *Exports["fivemtimesync"].CurrentDateTicks()*  
-   **Will return the total Ticks**
+- GetTimeIsPaused()  
+**return:** bool  
+**info:** Get if the server time is paused  
+  
+- SetTimeIsPaused(**bool** isPaused)  
+**info:** Pause the server time  
+  
+- GetCurrentDateTicks()  
+**return:** long  
+**info:** Get the server time total ticks  
+  
+- SetCurrentDateTicks(**long** ticks)  
+**info:** Set the server time from total ticks  
    
-   ```C#
-   DateTime currentDate = new DateTime(Exports["fivemtimesync"].CurrentDateTicks());
-   ```
+```csharp
+// Get the server time
+long ticks = Exports["fivemtimesync"].GetCurrentDateTicks();
+DateTime currentDate = new DateTime(ticks);
+
+// Set the server time
+Exports["fivemtimesync"].SetCurrentDateTicks(DateTime.Now.Ticks);
+```
    
 ---
    
