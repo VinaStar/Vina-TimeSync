@@ -11,7 +11,14 @@
    
 ---
   
-![Server Console Output](https://i.imgur.com/GSkoVZB.png)
+**Client Performance**  
+![Client Performance](https://i.imgur.com/M0Mvbia.png)  
+  
+**Server Performance**  
+![Server Performance](https://i.imgur.com/Zpz8Gte.png)  
+  
+**Server Console Output**  
+![Server Console Output](https://i.imgur.com/GSkoVZB.png)  
   
 ---
   
