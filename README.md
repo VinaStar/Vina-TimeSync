@@ -2,12 +2,12 @@
 
 ### FEATURES
 - Perfect Client & Server time synchronization
-- Configurable server settings using Convars
-- Custom Timerate speed
-- Pause-able Server Time
-- Time Persistence
+- Can configure resource with convars
+- Can start server with a custom time rate
+- Can pause time serverside
+- Time Persistence when rebooting
 - Standalone Resource
-- Usable in any resources
+- Usable Exports methods to use in your own resources
    
 ---
   
