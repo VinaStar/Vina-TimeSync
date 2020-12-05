@@ -13,14 +13,18 @@ namespace FiveM_TimeSyncServer.Modules
     {
         public TimeSyncModule(Server server) : base(server)
         {
-            endingDate = LoadCurrentTime();
-            lastServerTime = DateTime.Now;
+            lastServerTime = LoadCurrentTime();
+            lastRealTime = DateTime.Now;
 
-            script.AddTick(NetworkResync);
             script.AddTick(AutosaveTime);
+            script.AddTick(NetworkResync);
             script.AddTick(PeriodicConsolePrint);
 
-            script.SetExport("CurrentDateTicks", new Func<long>(ExportCurrentDateTicks));
+            script.SetExport("GetTimeIsPaused", new Func<bool>(ExportGetTimeIsPaused));
+            script.SetExport("SetTimeIsPaused", new Action<bool>(ExportSetTimeIsPaused));
+
+            script.SetExport("GetCurrentDateTicks", new Func<long>(ExportCurrentDateTicks));
+            script.SetExport("SetCurrentDateTicks", new Action<long>(ExportSetCurrentDateTicks));
         }
 
         #region ACCESSORS
@@ -45,7 +49,7 @@ namespace FiveM_TimeSyncServer.Modules
         {
             get
             {
-                return endingDate.AddMilliseconds(timeElapsed);
+                return lastServerTime.AddMilliseconds(timeElapsed);
             }
         }
 
@@ -57,11 +61,38 @@ namespace FiveM_TimeSyncServer.Modules
             }
         }
 
+        public bool Paused
+        {
+            get
+            {
+                return timePaused;
+            }
+            private set
+            {
+                if (value == true)
+                {
+                    lastServerTime = CurrentDate;
+                }
+                else
+                {
+                    lastRealTime = DateTime.Now;
+                }
+                timePaused = value;
+            }
+        }
+
         private double timeElapsed
         {
             get
             {
-                return DateTime.Now.Subtract(lastServerTime).TotalMilliseconds * timeRate;
+                if (Paused)
+                {
+                    return 0;
+                }
+                else
+                {
+                    return DateTime.Now.Subtract(lastRealTime).TotalMilliseconds * timeRate;
+                }
             }
         }
 
@@ -74,8 +105,9 @@ namespace FiveM_TimeSyncServer.Modules
         private int printDelay;
         private int clientUpdateDelay;
         private int timeRate;
-        private DateTime endingDate;
+        private bool timePaused;
         private DateTime lastServerTime;
+        private DateTime lastRealTime;
 
         #endregion
         #region BASE EVENTS
@@ -83,10 +115,10 @@ namespace FiveM_TimeSyncServer.Modules
         protected override void OnModuleInitialized()
         {
             // Print more informations
-            verbose = API.GetConvarInt("timesync_network_verbose", 0) == 0;
+            verbose = API.GetConvarInt("timesync_network_verbose", 0) == 1;
 
             // Peridically print current time
-            printEnabled = API.GetConvarInt("timesync_console_print_time", 0) == 0;
+            printEnabled = API.GetConvarInt("timesync_console_print_time", 1) == 1;
 
             // Console Print Time Format
             printFormat = API.GetConvar("timesync_console_print_format", "MMMM d yyyy, HH:mm:ss tt");
@@ -157,18 +189,24 @@ FIVEM TIME SYNC SETTINGS:
         #endregion
         #region MODULE METHODS
 
+        private void SetTimePaused(bool isPaused)
+        {
+            Paused = isPaused;
+            Server.TriggerClientEvent("TimeSync.SetTimeIsPaused", Paused, CurrentDate.Ticks);
+        }
+
         private void UpdatePlayerDateTime(Player player = null)
         {
             if (player != null)
             {
-                Server.TriggerClientEvent(player, "TimeSync.UpdateDateTime", timeRate, CurrentDate.Ticks);
+                Server.TriggerClientEvent(player, "TimeSync.UpdateDateTime", timeRate, Paused, CurrentDate.Ticks);
                 if (verbose) script.Log($"FiveM TimeSync syncing player ${player.Name} time!");
             }
             else
             {
                 if (API.GetNumPlayerIndices() > 0)
                 {
-                    Server.TriggerClientEvent("TimeSync.UpdateDateTime", timeRate, CurrentDate.Ticks);
+                    Server.TriggerClientEvent("TimeSync.UpdateDateTime", timeRate, Paused, CurrentDate.Ticks);
                     if (verbose) script.Log($"FiveM TimeSync syncing all players time!");
                 }
                 else if (verbose) script.Log($"FiveM TimeSync no online players, skipping syncing...");
@@ -207,9 +245,29 @@ FIVEM TIME SYNC SETTINGS:
             }
         }
 
+        #endregion
+        #region MODULE EXPORTS
+
+        private bool ExportGetTimeIsPaused()
+        {
+            return Paused;
+        }
+
+        private void ExportSetTimeIsPaused(bool isPaused)
+        {
+            SetTimePaused(isPaused);
+            script.Log($"Server time has been {((isPaused) ? "Paused" : "Unpaused")} from an Export call.");
+        }
+
         private long ExportCurrentDateTicks()
         {
             return CurrentDate.Ticks;
+        }
+
+        private void ExportSetCurrentDateTicks(long ticks)
+        {
+            lastServerTime = new DateTime(ticks);
+            script.Log("Server time has been set from an Export call.");
         }
 
         #endregion

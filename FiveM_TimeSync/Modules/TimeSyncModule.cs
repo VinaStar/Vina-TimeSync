@@ -11,8 +11,8 @@ namespace FiveM_TimeSync.Modules
     {
         public TimeSyncModule(Client client) : base(client)
         {
-            script.AddEvent("TimeSync.UpdateDateTime", new Action<int, long>(OnUpdateDateTime));
-            script.AddTick(OverrideTime);
+            script.AddEvent("TimeSync.UpdateDateTime", new Action<int, bool, long>(OnUpdateDateTime));
+            script.AddEvent("TimeSync.SetTimeIsPaused", new Action<bool, long>(OnSetTimeIsPaused));
         }
 
         #region ACCESSORS
@@ -33,11 +33,31 @@ namespace FiveM_TimeSync.Modules
             }
         }
 
+        public bool Paused
+        {
+            get
+            {
+                return timePaused;
+            }
+            set
+            {
+                lastRealTime = DateTime.Now;
+                timePaused = value;
+            }
+        }
+
         private double timeElapsed
         {
             get
             {
-                return DateTime.Now.Subtract(startingDate).TotalMilliseconds * timeRate;
+                if (Paused)
+                {
+                    return 0;
+                }
+                else
+                {
+                    return DateTime.Now.Subtract(lastRealTime).TotalMilliseconds * timeRate;
+                }
             }
         }
 
@@ -45,19 +65,36 @@ namespace FiveM_TimeSync.Modules
         #region VARIABLES
 
         private int timeRate;
-        private DateTime startingDate;
+        private DateTime lastRealTime;
         private DateTime lastServerTime;
+        private bool timePaused;
+
+        #endregion
+        #region BASE EVENTS
+
+        protected override void OnModuleInitialized()
+        {
+            script.AddTick(OverrideTime);
+        }
 
         #endregion
         #region MODULE EVENTS
 
-        private void OnUpdateDateTime(int newTimeRate, long currentTicks)
+        private void OnUpdateDateTime(int newTimeRate, bool isPaused, long currentTicks)
         {
             timeRate = newTimeRate;
-            startingDate = DateTime.Now;
+            lastRealTime = DateTime.Now;
             lastServerTime = new DateTime(currentTicks);
+            Paused = isPaused;
 
             script.Log($"Received update from server [TimeRate: {timeRate}, Server Time: ${lastServerTime}]");
+        }
+
+        private void OnSetTimeIsPaused(bool isPaused, long currentTicks)
+        {
+            Paused = isPaused;
+            if (Paused) lastServerTime = new DateTime(currentTicks);
+            script.Log($"Server time was {((isPaused) ? "Paused" : "Unpaused")}");
         }
 
         #endregion
@@ -69,7 +106,8 @@ namespace FiveM_TimeSync.Modules
             {
                 await Client.Delay(33);
 
-                if (startingDate == null || lastServerTime == null) continue;
+
+                if (lastRealTime == null || lastServerTime == null) continue;
 
                 API.NetworkOverrideClockTime(CurrentTime.Hours, CurrentTime.Minutes, CurrentTime.Seconds);
             }
