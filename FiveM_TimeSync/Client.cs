@@ -7,6 +7,8 @@ namespace FiveM_TimeSync
     {
         public Client()
         {
+            UseGarbageCollector = true;
+
             AddModule(typeof(TimeSyncModule));
         }
     }

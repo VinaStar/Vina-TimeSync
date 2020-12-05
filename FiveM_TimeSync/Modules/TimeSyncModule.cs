@@ -65,15 +65,16 @@ namespace FiveM_TimeSync.Modules
         #region VARIABLES
 
         private int timeRate;
+        private bool timePaused;
         private DateTime lastRealTime;
         private DateTime lastServerTime;
-        private bool timePaused;
 
         #endregion
         #region BASE EVENTS
 
         protected override void OnModuleInitialized()
         {
+            API.SetMillisecondsPerGameMinute(0);
             script.AddTick(OverrideTime);
         }
 
@@ -104,8 +105,7 @@ namespace FiveM_TimeSync.Modules
         {
             while (true)
             {
-                await Client.Delay(33);
-
+                await Client.Delay(50);
 
                 if (lastRealTime == null || lastServerTime == null) continue;
 
