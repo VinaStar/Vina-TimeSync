@@ -1,7 +1,7 @@
 ﻿using VinaFrameworkClient.Core;
-using FiveM_TimeSync.Modules;
+using Vina_TimeSyncClient.Modules;
 
-namespace FiveM_TimeSync
+namespace Vina_TimeSyncClient
 {
     public class Client : BaseClient
     {

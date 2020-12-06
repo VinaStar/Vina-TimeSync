@@ -1,7 +1,7 @@
 ﻿using VinaFrameworkServer.Core;
-using FiveM_TimeSyncServer.Modules;
+using Vina_TimeSyncServer.Modules;
 
-namespace FiveM_TimeSyncServer
+namespace Vina_TimeSyncServer
 {
     public class Server : BaseServer
     {

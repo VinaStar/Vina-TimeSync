@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("FiveM_TimeSyncServer")]
+[assembly: AssemblyTitle("Vina_TimeSync")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("FiveM_TimeSyncServer")]
+[assembly: AssemblyProduct("Vina_TimeSyncClient")]
 [assembly: AssemblyCopyright("Copyright © VinaStar 2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("a4e0ca53-9dcd-453f-83cd-3f7ab0f25807")]
+[assembly: Guid("e43819c4-7f54-408a-b097-794cbd245bad")]
 
 // Version information for an assembly consists of the following four values:
 //

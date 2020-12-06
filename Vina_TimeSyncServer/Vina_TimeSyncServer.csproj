@@ -7,8 +7,8 @@
     <ProjectGuid>{A4E0CA53-9DCD-453F-83CD-3F7AB0F25807}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FiveM_TimeSyncServer</RootNamespace>
-    <AssemblyName>FiveM_TimeSyncServer.net</AssemblyName>
+    <RootNamespace>Vina_TimeSyncServer</RootNamespace>
+    <AssemblyName>Vina_TimeSyncServer.net</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -17,7 +17,7 @@
     <DebugSymbols>false</DebugSymbols>
     <DebugType>none</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\_resources\fivemtimesync\</OutputPath>
+    <OutputPath>..\..\_resources\vinatimesync\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>

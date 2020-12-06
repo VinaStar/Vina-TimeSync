@@ -7,7 +7,7 @@ using CitizenFX.Core.Native;
 
 using VinaFrameworkServer.Core;
 
-namespace FiveM_TimeSyncServer.Modules
+namespace Vina_TimeSyncServer.Modules
 {
     public class TimeSyncModule : Module
     {
@@ -91,32 +91,33 @@ namespace FiveM_TimeSyncServer.Modules
         protected override void OnModuleInitialized()
         {
             // Print more informations
-            verbose = API.GetConvarInt("timesync_network_verbose", 0) == 1;
+            verbose = API.GetConvarInt("vina_timesync_network_verbose", 0) == 1;
 
             // Peridically print current time
-            printEnabled = API.GetConvarInt("timesync_console_print_time", 1) == 1;
+            printEnabled = API.GetConvarInt("vina_timesync_console_print_time", 1) == 1;
 
             // Console Print Time Format
-            printFormat = API.GetConvar("timesync_console_print_format", "MMMM d yyyy, HH:mm:ss tt");
+            printFormat = API.GetConvar("vina_timesync_console_print_format", "MMMM d yyyy, HH:mm:ss tt");
 
             // Console Print Time Delay
-            printDelay = API.GetConvarInt("timesync_console_print_delay", 1000 * 60 * 5);
+            printDelay = API.GetConvarInt("vina_timesync_console_print_delay", 1000 * 60 * 5);
 
             // Sync players every 10 secs
-            clientUpdateDelay = API.GetConvarInt("timesync_update_delay", 60000);
+            clientUpdateDelay = API.GetConvarInt("vina_timesync_update_delay", 60000);
 
             // 10 x realtime
-            timeRate = API.GetConvarInt("timesync_timerate", 1);
+            timeRate = API.GetConvarInt("vina_timesync_timerate", 1);
 
             Debug.WriteLine($@"
 =====================================
 FIVEM TIME SYNC SETTINGS:
 =====================================
- timesync_console_print              = {printEnabled}
- timesync_console_print_format       = {printFormat}
- timesync_console_print_delay (ms)   = {printDelay}
- timesync_update_delay (ms)          = {clientUpdateDelay}
- timesync_timerate (1sec * timerate) = {timeRate}
+ vina_timesync_network_verbose            = {verbose}
+ vina_timesync_console_print              = {printEnabled}
+ vina_timesync_console_print_format       = {printFormat}
+ vina_timesync_console_print_delay (ms)   = {printDelay}
+ vina_timesync_update_delay (ms)          = {clientUpdateDelay}
+ vina_timesync_timerate (1sec * timerate) = {timeRate}
  Current Date                        = {CurrentDate.ToString(printFormat)}
 =====================================");
         }

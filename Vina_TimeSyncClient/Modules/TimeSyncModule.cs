@@ -5,7 +5,7 @@ using CitizenFX.Core.Native;
 
 using VinaFrameworkClient.Core;
 
-namespace FiveM_TimeSync.Modules
+namespace Vina_TimeSyncClient.Modules
 {
     public class TimeSyncModule : Module
     {

@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FiveM_TimeSync", "FiveM_TimeSync\FiveM_TimeSync.csproj", "{E43819C4-7F54-408A-B097-794CBD245BAD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vina_TimeSyncClient", "Vina_TimeSyncClient\Vina_TimeSyncClient.csproj", "{E43819C4-7F54-408A-B097-794CBD245BAD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FiveM_TimeSyncServer", "FiveM_TimeSyncServer\FiveM_TimeSyncServer.csproj", "{A4E0CA53-9DCD-453F-83CD-3F7AB0F25807}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vina_TimeSyncServer", "Vina_TimeSyncServer\Vina_TimeSyncServer.csproj", "{A4E0CA53-9DCD-453F-83CD-3F7AB0F25807}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
