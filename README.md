@@ -1,4 +1,4 @@
-# FiveM TimeSync
+# Vina TimeSync
 
 ### FEATURES
 - Perfect Client & Server time synchronization
