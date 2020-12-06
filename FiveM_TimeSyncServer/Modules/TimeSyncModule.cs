@@ -23,41 +23,17 @@ namespace FiveM_TimeSyncServer.Modules
             script.SetExport("GetTimeIsPaused", new Func<bool>(ExportGetTimeIsPaused));
             script.SetExport("SetTimeIsPaused", new Action<bool>(ExportSetTimeIsPaused));
 
-            script.SetExport("GetCurrentDateTicks", new Func<long>(ExportCurrentDateTicks));
+            script.SetExport("GetCurrentDateTicks", new Func<long>(ExportGetCurrentDateTicks));
             script.SetExport("SetCurrentDateTicks", new Action<long>(ExportSetCurrentDateTicks));
         }
 
         #region ACCESSORS
-
-        public DateTime RealDate
-        {
-            get
-            {
-                return DateTime.Now;
-            }
-        }
-
-        public TimeSpan RealTime
-        {
-            get
-            {
-                return RealDate.TimeOfDay;
-            }
-        }
 
         public DateTime CurrentDate
         {
             get
             {
                 return lastServerTime.AddMilliseconds(timeElapsed);
-            }
-        }
-
-        public TimeSpan CurrentTime
-        {
-            get
-            {
-                return CurrentDate.TimeOfDay;
             }
         }
 
@@ -183,7 +159,7 @@ FIVEM TIME SYNC SETTINGS:
 
             if (!printEnabled) return;
 
-            script.Log($@"SERVER CURRENT TIME: {CurrentDate.ToString(printFormat)}");
+            script.Log($@"SERVER CURRENT TIME: {((Paused) ? "[PAUSED]" : "")}{CurrentDate.ToString(printFormat)}");
         }
 
         #endregion
@@ -256,10 +232,10 @@ FIVEM TIME SYNC SETTINGS:
         private void ExportSetTimeIsPaused(bool isPaused)
         {
             SetTimePaused(isPaused);
-            script.Log($"Server time has been {((isPaused) ? "Paused" : "Unpaused")} from an Export call.");
+            script.Log($"Server time has been {((isPaused) ? "Paused" : "Unpaused")} at {CurrentDate.ToString(printFormat)} from an Export call.");
         }
 
-        private long ExportCurrentDateTicks()
+        private long ExportGetCurrentDateTicks()
         {
             return CurrentDate.Ticks;
         }
@@ -267,7 +243,8 @@ FIVEM TIME SYNC SETTINGS:
         private void ExportSetCurrentDateTicks(long ticks)
         {
             lastServerTime = new DateTime(ticks);
-            script.Log("Server time has been set from an Export call.");
+            UpdatePlayerDateTime();
+            script.Log($"Server time has been set to {CurrentDate.ToString(printFormat)} from an Export call.");
         }
 
         #endregion
