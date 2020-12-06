@@ -7,7 +7,7 @@
 - Can pause time serverside
 - Time Persistence when rebooting
 - Standalone Resource
-- Usable Exports methods to use in your own resources
+- Can use Exports methods in your own resources
    
 ---
   
